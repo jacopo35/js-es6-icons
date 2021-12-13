@@ -121,3 +121,62 @@ datas = [
         color: 'blue'
     }
 ];
+
+let container = document.querySelector('.container-ul');
+let filter = document.getElementById('filter');
+
+let vegetables = datas.filter((element) => {
+    return element.type == "piante";
+});
+
+let animals = datas.filter((element) => {
+    return element.type == "animali";
+});
+
+let users = datas.filter((element) => {
+    return element.type == "user";
+});
+
+for (let index = 0; index < datas.length; index++) {
+    container.innerHTML += makeCard(datas[index]);
+};
+
+filter.addEventListener('change', function () {
+    switch (filter.value) {
+        case 'all':
+            container.innerHTML = '';
+            datas.forEach((element) => {
+                container.innerHTML += makeCard(element);
+            });
+            break;
+
+        case 'vegetable':
+            container.innerHTML = '';
+            vegetables.forEach((element) => {
+                container.innerHTML += makeCard(element);
+            });
+            break;
+
+        case 'animal':
+            container.innerHTML = '';
+            animals.forEach((element) => {
+                container.innerHTML += makeCard(element);
+            });
+            break;
+
+        case 'user':
+            container.innerHTML = '';
+            users.forEach((element) => {
+                container.innerHTML += makeCard(element);
+            });
+            break;
+    }
+})
+
+//funzioni
+function makeCard(element) {
+    const templateCard = `
+        <li class="d-flex ${element.type}"><i class="${element.family} ${element.prefix}${element.name}" style="color:${element.color}"></i><span>${element.name}</span></li>
+        `;
+    return templateCard;
+}
